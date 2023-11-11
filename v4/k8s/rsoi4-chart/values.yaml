@@ -1,0 +1,28 @@
+ratingapi:
+  service:
+    port: 8050
+    image:
+      name: migregal/library-ratingapi
+      tag: latest
+
+libraryapi:
+  service:
+    port: 8060
+    image:
+      name: migregal/library-libraryapi
+      tag: latest
+
+reservationapi:
+  service:
+    port: 8070
+    image:
+      name: migregal/library-reservationapi
+      tag: latest
+
+apiserver:
+  service:
+    port: 8080
+    image:
+      name: migregal/library-apiserver
+      tag: latest
+    isGateway: true

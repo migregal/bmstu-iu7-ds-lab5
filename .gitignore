@@ -195,7 +195,6 @@ build-iPhoneSimulator/
 *.dll
 
 # Fortran module files
-*.mod
 *.smod
 
 # Compiled Static libraries
@@ -356,7 +355,6 @@ local.properties
 *.pdb
 
 # Kernel Module Compile Results
-*.mod*
 *.cmd
 .tmp_versions/
 modules.order
@@ -505,7 +503,6 @@ CMakeCache.txt
 CMakeFiles
 CMakeScripts
 Testing
-Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
@@ -611,7 +608,6 @@ rerun.txt
 pickle-email-*.html
 
 # Ignore all logfiles and tempfiles.
-/log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
@@ -865,7 +861,6 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
 [Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
