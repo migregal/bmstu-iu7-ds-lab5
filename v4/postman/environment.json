@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "serviceUrl",
-      "value": "212.233.121.102",
+      "value": "library.example.com",
       "enabled": true
     },
     {
