@@ -97,12 +97,7 @@ services:
     build:
       context: .
       dockerfile: v4/src/docker/apiserver/Dockerfile
-    container_name: apiserver
-    # environment:
-    #   AUTH0_DOMAIN: 'dev-w3u5drwbbtcgp6sg.us.auth0.com'
-    #   AUTH0_CLIENT_ID: 'GLcmEnDqnlRqrsugJe4iZS1bzsMabYge'
-    #   AUTH0_CLIENT_SECRET: 'KGEcyRPnv7tBh5kopNCgYIfl-Wj9im0zuWaUzt-E7LDTS-H4mXHDAKwXg1TCWipL'
-    #   AUTH0_CALLBACK_URL: http://localhost:8080/oauth2/v1/auth0/callback
+    container_name: apiserverauth_ukey_jigurda
     ports:
       - "8080:8080"
     depends_on:
