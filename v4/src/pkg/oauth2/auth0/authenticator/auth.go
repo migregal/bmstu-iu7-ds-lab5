@@ -3,10 +3,13 @@ package authenticator
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/coreos/go-oidc/v3/oidc"
 	"golang.org/x/oauth2"
 )
+
+var ErrNoIDToken = errors.New("no id_token field in oauth2 token")
 
 type Config struct {
 	Domain       string `mapstructure:"domain"`
@@ -28,7 +31,7 @@ func New(cfg Config) (*Authenticator, error) {
 		"https://"+cfg.Domain+"/",
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("init provider: %w", err)
 	}
 
 	conf := oauth2.Config{
@@ -45,19 +48,28 @@ func New(cfg Config) (*Authenticator, error) {
 	}, nil
 }
 
-func (a *Authenticator) VerifyIDTokenFromTokenSet(ctx context.Context, token *oauth2.Token) (*oidc.IDToken, error) {
+func (a *Authenticator) VerifyIDTokenFromTokenSet(
+	ctx context.Context, token *oauth2.Token,
+) (*oidc.IDToken, error) {
 	rawIDToken, ok := token.Extra("id_token").(string)
 	if !ok {
-		return nil, errors.New("no id_token field in oauth2 token")
+		return nil, ErrNoIDToken
 	}
 
 	return a.verifyIDToken(ctx, rawIDToken)
 }
 
-func (a *Authenticator) verifyIDToken(ctx context.Context, token string) (*oidc.IDToken, error) {
+func (a *Authenticator) verifyIDToken(
+	ctx context.Context, token string,
+) (*oidc.IDToken, error) {
 	oidcConfig := &oidc.Config{
 		ClientID: a.ClientID,
 	}
 
-	return a.Verifier(oidcConfig).Verify(ctx, token)
+	res, err := a.Verifier(oidcConfig).Verify(ctx, token)
+	if err != nil {
+		return nil, fmt.Errorf("verify: %w", err)
+	}
+
+	return res, nil
 }

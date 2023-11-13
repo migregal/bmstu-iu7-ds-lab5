@@ -13,9 +13,9 @@ import (
 
 type TakeBookRequest struct {
 	// AuthedRequest `valid:"optional"`
-	BookID        string `json:"bookUid" valid:"uuidv4,required"`
-	LibraryID     string `json:"libraryUid" valid:"uuidv4,required"`
-	End           Time   `json:"tillDate" valid:"required"`
+	BookID    string `json:"bookUid" valid:"uuidv4,required"`
+	LibraryID string `json:"libraryUid" valid:"uuidv4,required"`
+	End       Time   `json:"tillDate" valid:"required"`
 }
 
 type TakeBookResponse struct {

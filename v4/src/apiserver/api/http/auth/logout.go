@@ -8,7 +8,7 @@ import (
 )
 
 func (a *api) Logout(c echo.Context) error {
-	logoutUrl, err := url.Parse("https://" + a.authcfg.Domain + "/v2/logout")
+	logoutURL, err := url.Parse("https://" + a.authcfg.Domain + "/v2/logout")
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -26,7 +26,7 @@ func (a *api) Logout(c echo.Context) error {
 	parameters := url.Values{}
 	parameters.Add("returnTo", returnTo.String())
 	parameters.Add("client_id", a.authcfg.ClientID)
-	logoutUrl.RawQuery = parameters.Encode()
+	logoutURL.RawQuery = parameters.Encode()
 
-	return c.Redirect(http.StatusTemporaryRedirect, logoutUrl.String())
+	return c.Redirect(http.StatusTemporaryRedirect, logoutURL.String())
 }

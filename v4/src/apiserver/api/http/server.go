@@ -23,7 +23,9 @@ type Server struct {
 	mx *echo.Echo
 }
 
-func New(lg *slog.Logger, probe *readiness.Probe, core Core, cfg authenticator.Config) (*Server, error) {
+func New(
+	lg *slog.Logger, probe *readiness.Probe, core Core, cfg authenticator.Config,
+) (*Server, error) {
 	mx := echo.New()
 	mx.Use(
 		middleware.Recover(),
@@ -48,7 +50,7 @@ func New(lg *slog.Logger, probe *readiness.Probe, core Core, cfg authenticator.C
 		return nil, fmt.Errorf("failed to init common apis: %w", err)
 	}
 
-	err = auth.InitListener(s.mx, lg, cfg)
+	err = auth.InitListener(s.mx, cfg)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init auth apis: %w", err)
 	}

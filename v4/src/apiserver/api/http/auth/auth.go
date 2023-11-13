@@ -2,7 +2,6 @@ package auth
 
 import (
 	"fmt"
-	"log/slog"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -18,7 +17,7 @@ type api struct {
 	auth    *authenticator.Authenticator
 }
 
-func InitListener(mx *echo.Echo, lg *slog.Logger, cfg authenticator.Config) error {
+func InitListener(mx *echo.Echo, cfg authenticator.Config) error {
 	gr := mx.Group("/oauth2/v1")
 
 	gr.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))

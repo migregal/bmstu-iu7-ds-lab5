@@ -29,6 +29,7 @@ linters:
     - exhaustruct
     - tagalign
     - nolintlint
+    - tagliatelle
   presets:
     - bugs
     - comment
@@ -72,6 +73,7 @@ linters-settings:
       - .NoContent(
       - .NewHTTPError(
       - .Redirect(
+      - .String(
       - errors.New
   varnamelen:
     max-distance: 6

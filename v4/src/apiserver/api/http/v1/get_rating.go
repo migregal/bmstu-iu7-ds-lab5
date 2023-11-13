@@ -14,7 +14,7 @@ type RatingResponse struct {
 	Rating
 }
 
-func (a *api) GetRating(c echo.Context, req RatingRequest) error {
+func (a *api) GetRating(c echo.Context, _ RatingRequest) error {
 	data, err := a.core.GetUserRating(c.Request().Context(), c.Get("username").(string))
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)

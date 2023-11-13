@@ -21,17 +21,18 @@ func NewMiddleware(lg *slog.Logger, auth *Authenticator) *Middleware {
 func (m *Middleware) Handle(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		auth := c.Request().Header.Get("Authorization")
+
 		token, found := strings.CutPrefix(auth, "Bearer ")
 		if !found {
 			m.lg.Error("failed to obtain auth header")
+
 			return c.NoContent(http.StatusUnauthorized)
 		}
 
-
-		// https://{yourDomain}/userinfo
 		idToken, err := m.auth.verifyIDToken(c.Request().Context(), token)
 		if err != nil {
 			m.lg.Error("failed to verify id token", "err", err)
+
 			return c.NoContent(http.StatusUnauthorized)
 		}
 
@@ -40,6 +41,7 @@ func (m *Middleware) Handle(next echo.HandlerFunc) echo.HandlerFunc {
 		}{}
 		if err = idToken.Claims(&tmp); err != nil {
 			m.lg.Error("failed to parse claims", "err", err)
+
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 

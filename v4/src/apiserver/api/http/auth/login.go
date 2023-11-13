@@ -3,6 +3,7 @@ package auth
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -24,7 +25,7 @@ func (a *api) Login(c echo.Context) error {
 
 	sess.Options = &sessions.Options{
 		Path:     "/oauth2/v1/auth0",
-		MaxAge:   int(5 + time.Minute.Seconds()),
+		MaxAge:   int(5 + time.Minute.Seconds()), //nolint: gomnd
 		HttpOnly: true,
 	}
 
@@ -37,10 +38,9 @@ func (a *api) Login(c echo.Context) error {
 }
 
 func generateRandomState() (string, error) {
-	b := make([]byte, 32)
-	_, err := rand.Read(b)
-	if err != nil {
-		return "", err
+	b := make([]byte, 32) //nolint: gomnd
+	if _, err := rand.Read(b); err != nil {
+		return "", fmt.Errorf("generate state: %w", err)
 	}
 
 	state := base64.StdEncoding.EncodeToString(b)

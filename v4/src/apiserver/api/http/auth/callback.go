@@ -31,7 +31,7 @@ func (a *api) Callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "failed to verify ID Token.")
 	}
 
-	resp := CallbackResponse{AccessToken: token.Extra("id_token").(string)}
+	resp := CallbackResponse{AccessToken: token.Extra("id_token").(string)} //nolint: forcetypeassert
 
 	return c.JSON(http.StatusOK, resp)
 }

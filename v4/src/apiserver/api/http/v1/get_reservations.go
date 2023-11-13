@@ -35,7 +35,7 @@ func (r ReservationsResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (a *api) GetReservations(c echo.Context, req ReservationsRequest) error {
+func (a *api) GetReservations(c echo.Context, _ ReservationsRequest) error {
 	data, err := a.core.GetUserReservations(c.Request().Context(), c.Get("username").(string))
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)
