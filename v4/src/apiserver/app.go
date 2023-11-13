@@ -45,7 +45,7 @@ func New(lg *slog.Logger, cfg *config.Config) (*App, error) {
 		return nil, fmt.Errorf("failed to init core: %w", err)
 	}
 
-	a.http, err = http.New(lg.With("module", "http_api"), probe, core)
+	a.http, err = http.New(lg.With("module", "http_api"), probe, core, cfg.Auth0)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init http server: %w", err)
 	}

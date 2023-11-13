@@ -7,7 +7,7 @@ import (
 )
 
 type RatingRequest struct {
-	AuthedRequest `valid:"optional"`
+	// AuthedRequest `valid:"optional"`
 }
 
 type RatingResponse struct {
@@ -15,7 +15,7 @@ type RatingResponse struct {
 }
 
 func (a *api) GetRating(c echo.Context, req RatingRequest) error {
-	data, err := a.core.GetUserRating(c.Request().Context(), req.Username)
+	data, err := a.core.GetUserRating(c.Request().Context(), c.Get("username").(string))
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 type ReservationsRequest struct {
-	AuthedRequest `valid:"optional"`
+	// AuthedRequest `valid:"optional"`
 }
 
 type ReservationsResponse struct {
@@ -36,7 +36,7 @@ func (r ReservationsResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (a *api) GetReservations(c echo.Context, req ReservationsRequest) error {
-	data, err := a.core.GetUserReservations(c.Request().Context(), req.Username)
+	data, err := a.core.GetUserReservations(c.Request().Context(), c.Get("username").(string))
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)
 	}

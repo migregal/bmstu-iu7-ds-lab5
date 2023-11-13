@@ -11,3 +11,9 @@ library:
 reservation:
   host: reservationapi-service
   port: 8070
+
+auth0:
+  domain: dev-w3u5drwbbtcgp6sg.us.auth0.com
+  client_id: GLcmEnDqnlRqrsugJe4iZS1bzsMabYge
+  client_secret: KGEcyRPnv7tBh5kopNCgYIfl-Wj9im0zuWaUzt-E7LDTS-H4mXHDAKwXg1TCWipL
+  callback_url: http://212.233.121.102/oauth2/v1/auth0/callback

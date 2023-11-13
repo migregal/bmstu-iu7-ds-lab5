@@ -10,14 +10,14 @@ import (
 )
 
 type ReturnBookRequest struct {
-	AuthedRequest `valid:"optional"`
+	// AuthedRequest `valid:"optional"`
 	ID            string `param:"id" valid:"uuidv4,required"`
 	Condition     string `json:"condition" valid:"optional"`
 	Date          Time   `json:"date" valid:"optional"`
 }
 
 func (a *api) ReturnBook(c echo.Context, req ReturnBookRequest) error {
-	err := a.core.ReturnBook(c.Request().Context(), req.Username, req.ID, req.Condition, req.Date.Time)
+	err := a.core.ReturnBook(c.Request().Context(), c.Get("username").(string), req.ID, req.Condition, req.Date.Time)
 	if err != nil {
 		if errors.Is(err, core.ErrNotFound) {
 			resp := ErrorResponse{

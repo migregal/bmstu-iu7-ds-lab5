@@ -8,6 +8,7 @@ import (
 	"github.com/migregal/bmstu-iu7-ds-lab2/apiserver/core/ports/library"
 	"github.com/migregal/bmstu-iu7-ds-lab2/apiserver/core/ports/rating"
 	"github.com/migregal/bmstu-iu7-ds-lab2/apiserver/core/ports/reservation"
+	"github.com/migregal/bmstu-iu7-ds-lab2/pkg/oauth2/auth0/authenticator"
 )
 
 type Config struct {
@@ -16,6 +17,8 @@ type Config struct {
 	Library     library.Config
 	Rating      rating.Config
 	Reservation reservation.Config
+
+	Auth0 authenticator.Config `mapstructure:"auth0"`
 }
 
 func ReadConfig() (*Config, error) {

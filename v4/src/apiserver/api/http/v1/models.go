@@ -6,9 +6,9 @@ import (
 	"time"
 )
 
-type AuthedRequest struct {
-	Username string `header:"X-User-Name" valid:"required"`
-}
+// type AuthedRequest struct {
+// 	Username string `header:"X-User-Name" valid:"required"`
+// }
 
 type PaginatedRequest struct {
 	Page uint64 `query:"page" valid:"positive_uint,optional"`

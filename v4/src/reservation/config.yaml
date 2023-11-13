@@ -1,7 +1,7 @@
 http_addr: ":8070"
 
 reservations:
-  host: localhost
+  host: postgres
   port: 5432
   user: program
   password: test

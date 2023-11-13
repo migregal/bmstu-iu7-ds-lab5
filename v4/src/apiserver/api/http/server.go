@@ -7,9 +7,11 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
+	"github.com/migregal/bmstu-iu7-ds-lab2/apiserver/api/http/auth"
 	"github.com/migregal/bmstu-iu7-ds-lab2/apiserver/api/http/common"
 	v1 "github.com/migregal/bmstu-iu7-ds-lab2/apiserver/api/http/v1"
 	"github.com/migregal/bmstu-iu7-ds-lab2/pkg/httpvalidator"
+	"github.com/migregal/bmstu-iu7-ds-lab2/pkg/oauth2/auth0/authenticator"
 	"github.com/migregal/bmstu-iu7-ds-lab2/pkg/readiness"
 )
 
@@ -21,7 +23,7 @@ type Server struct {
 	mx *echo.Echo
 }
 
-func New(lg *slog.Logger, probe *readiness.Probe, core Core) (*Server, error) {
+func New(lg *slog.Logger, probe *readiness.Probe, core Core, cfg authenticator.Config) (*Server, error) {
 	mx := echo.New()
 	mx.Use(
 		middleware.Recover(),
@@ -46,7 +48,12 @@ func New(lg *slog.Logger, probe *readiness.Probe, core Core) (*Server, error) {
 		return nil, fmt.Errorf("failed to init common apis: %w", err)
 	}
 
-	err = v1.InitListener(s.mx, lg.With("api", "v1"), core)
+	err = auth.InitListener(s.mx, lg, cfg)
+	if err != nil {
+		return nil, fmt.Errorf("failed to init auth apis: %w", err)
+	}
+
+	err = v1.InitListener(s.mx, lg.With("api", "v1"), core, cfg)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init v1 apis: %w", err)
 	}
