@@ -1,0 +1,22 @@
+domain: library.example.com
+service:
+  port: 8080
+  isGateway:
+  image:
+    name:
+    version:
+
+  database:
+    name:
+    host: postgres-chart-service
+    port: 5432
+    username: program
+    password: test
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
